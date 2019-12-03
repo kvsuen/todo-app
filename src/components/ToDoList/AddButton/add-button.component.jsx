@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { newItem } from '../../../redux/actions/itemActions';
 
+import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
+import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -21,18 +24,26 @@ const useStyles = makeStyles(theme => ({
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
       width: 200
-    }
+    },
+    display: 'flex',
+    flexDirection: 'column'
   },
   modal: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    ouline: 0
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3)
+    padding: theme.spacing(2, 4, 3),
+    outline: '0',
+    borderRadius: '0',
+    boxShadow:
+      '4px 4px 2px -1px rgba(0,0,0,0.2), 3px 3px 2px 0px rgba(0,0,0,0.14), -3px 3px 5px 0px rgba(0,0,0,0.12)'
+  },
+  createButton: {
+    marginTop: '15px'
   }
 }));
 
@@ -72,7 +83,11 @@ const AddButton = ({ newItem }) => {
 
   return (
     <>
-      <AddIcon onClick={handleOpen} />
+      <Tooltip title="Add" aria-label="add" onClick={handleOpen}>
+        <Fab color="primary" className={classes.absolute}>
+          <AddIcon />
+        </Fab>
+      </Tooltip>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -87,6 +102,9 @@ const AddButton = ({ newItem }) => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
+            <Typography variant="h6" gutterBottom>
+              New To-Do Item
+            </Typography>
             <form
               className={classes.root}
               autoComplete="off"
@@ -104,7 +122,7 @@ const AddButton = ({ newItem }) => {
                 label="Description"
                 name="description"
                 multiline
-                rowsMax="2"
+                rowsMax="4"
                 value={values.description}
                 onChange={handleChange}
               />
@@ -124,8 +142,13 @@ const AddButton = ({ newItem }) => {
                   }}
                 />
               </MuiPickersUtilsProvider>
-              <Button variant="contained" color="primary" type="submit">
-                Submit
+              <Button
+                className={classes.createButton}
+                variant="contained"
+                color="primary"
+                type="submit"
+              >
+                Create!
               </Button>
             </form>
           </div>
@@ -137,6 +160,6 @@ const AddButton = ({ newItem }) => {
 
 const mapDispatchToProps = {
   newItem
-}
+};
 
 export default connect(null, mapDispatchToProps)(AddButton);
