@@ -9,7 +9,6 @@ export const newItem = itemData => dispatch => {
   // item will need id
   // would also need to do request to backend server
   // to persist data in db
-  console.log('here', itemData)
 
   dispatch({
     type: NEW_ITEM,
