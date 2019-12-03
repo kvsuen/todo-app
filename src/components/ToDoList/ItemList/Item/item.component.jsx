@@ -1,15 +1,25 @@
 import React from 'react';
-import { format } from 'date-fns'
+import { connect } from 'react-redux';
+import { format } from 'date-fns';
 
-const Item = ({ title, description, dueDate, isCompleted }) => {
+import { deleteItem } from '../../../../redux/actions/itemActions'
+
+import DeleteIcon from '@material-ui/icons/Delete';
+
+const Item = ({ deleteItem, id, title, description, dueDate, isCompleted }) => {
   return (
     <div>
       <h1>{title}</h1>
       <h2>{description}</h2>
       {format(dueDate, 'yyyy-MM-dd')}
       {isCompleted ? 'Completed' : 'Pending'}
+      <DeleteIcon onClick={() => deleteItem(id)}/>
     </div>
   );
 };
 
-export default Item;
+const mapDispatchToProps = {
+  deleteItem
+}
+
+export default connect(null, mapDispatchToProps)(Item);

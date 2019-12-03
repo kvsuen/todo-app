@@ -4,10 +4,12 @@ import Item from './Item/item.component';
 
 const ItemList = ({ toDos }) => {
   const items = toDos.map(toDo => {
-    const { title, description, dueDate, isCompleted } = toDo;
+    const { id, title, description, dueDate, isCompleted } = toDo;
 
     return (
       <Item
+        key={id}
+        id={id}
         title={title}
         description={description}
         dueDate={dueDate}
