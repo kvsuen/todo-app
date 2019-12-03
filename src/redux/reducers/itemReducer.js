@@ -1,7 +1,13 @@
-import { FETCH_ITEMS, NEW_ITEM, EDIT_ITEM, DELETE_ITEM } from '../actions/types';
+import {
+  FETCH_ITEMS,
+  NEW_ITEM,
+  EDIT_ITEM,
+  DELETE_ITEM,
+  TOGGLE_COMPLETE
+} from '../actions/types';
 
 const initialState = {
-  items: []
+  items: {}
 };
 
 export default function(state = initialState, action) {
@@ -13,40 +19,41 @@ export default function(state = initialState, action) {
       };
 
     case NEW_ITEM:
-      const newItem = [...state.items];
-      newItem.unshift(action.payload);
+      const { id } = action.payload;
       return {
         ...state,
-        items: newItem
+        items: { ...state.items, [id]: action.payload }
       };
 
     case EDIT_ITEM:
-      const idToEdit = action.payload;
-
-      // return all other items to exclude edit item
-      const itemToEdit = state.items.filter(item => {
-        return idToEdit !== item.id 
-      })
-
-      itemToEdit.unshift(action.payload)
+      const idToEdit = action.payload.id;
 
       return {
         ...state,
-        items: itemToEdit
+        items: { ...state.items, [idToEdit]: action.payload.itemData }
       };
 
     case DELETE_ITEM:
       const idToDelete = action.payload;
 
-      // return all other items excluding the deleted id
-      const nonDeletedItems = state.items.filter(item => {
-        return idToDelete !== item.id
-      })
+      const nonDeletedItems = { ...state.items };
+      delete nonDeletedItems[idToDelete];
 
       return {
         ...state,
         items: nonDeletedItems
-      }
+      };
+
+    case TOGGLE_COMPLETE:
+      const idToToggleComplete = action.payload
+      const updatedItem = state.items[idToToggleComplete]
+      const status = updatedItem.isCompleted
+      status ? updatedItem.isCompleted = false : updatedItem.isCompleted = true
+
+      return {
+        ...state,
+        items: {...state.items, [idToToggleComplete]: updatedItem}
+      };
 
     default:
       return state;

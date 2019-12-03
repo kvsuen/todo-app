@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import Item from './Item/item.component';
 
 const ItemList = ({ toDos }) => {
-  const items = toDos.map(toDo => {
-    const { id, title, description, dueDate, isCompleted } = toDo;
+  const ids = Object.keys(toDos)
+  const items = ids.map(elem => {
+    const { id, title, description, dueDate, isCompleted } = toDos[elem];
 
     return (
       <Item
@@ -19,7 +20,7 @@ const ItemList = ({ toDos }) => {
   });
 
   return (
-    <div>
+    <div style={{width: '100%'}}>
       {items}
     </div>
   );
