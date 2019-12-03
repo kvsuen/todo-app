@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { newItem } from '../../../redux/actions/itemActions';
 
+import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { makeStyles } from '@material-ui/core/styles';
-import AddIcon from '@material-ui/icons/Add';
-
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -38,11 +38,11 @@ const useStyles = makeStyles(theme => ({
 
 const AddButton = ({ newItem }) => {
   const classes = useStyles();
-
   const [values, setValues] = useState({
     title: '',
     description: '',
-    dueDate: new Date()
+    dueDate: new Date(),
+    isCompleted: false
   });
   const [open, setOpen] = useState(false);
 
@@ -53,7 +53,6 @@ const AddButton = ({ newItem }) => {
   const handleClose = () => {
     setOpen(false);
   };
-
 
   const handleChange = event => {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -139,6 +138,5 @@ const AddButton = ({ newItem }) => {
 const mapDispatchToProps = {
   newItem
 }
-
 
 export default connect(null, mapDispatchToProps)(AddButton);
