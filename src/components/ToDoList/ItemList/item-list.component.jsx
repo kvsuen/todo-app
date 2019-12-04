@@ -5,7 +5,19 @@ import AddEditModal from '../AddEditModal/add-edit-modal.component';
 
 import { editItem } from '../../../redux/actions/itemActions';
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  itemListContainer: {
+    width: '100%',
+    textAlign: 'center',
+    marginTop: '10px'
+  }
+}));
+
 const ItemList = ({ toDos, editItem }) => {
+  const classes = useStyles();
+
   const [open, setOpen] = useState(false);
   const [initialState, setInitialState] = useState({
     title: '',
@@ -48,7 +60,9 @@ const ItemList = ({ toDos, editItem }) => {
 
   return (
     <>
-      <div style={{ width: '100%' }}>{items}</div>
+      <div className={classes.itemListContainer}>
+        {items.length > 0 ? items : 'Currently nothing to do!'}
+      </div>
       <AddEditModal
         open={open}
         handleClose={handleClose}
@@ -68,6 +82,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   editItem
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemList);

@@ -12,12 +12,13 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    height: '100%'
+    height: '100%', 
+    boxShadow: '-1px 4px 15px 2px rgba(0,0,0,0.24)'
   },
   addButton: {
     position: 'absolute',
     bottom: '15px',
-    right: '15px',
+    right: '15px'
   }
 }));
 

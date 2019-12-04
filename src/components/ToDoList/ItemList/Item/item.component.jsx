@@ -21,11 +21,12 @@ import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 
 const useStyles = makeStyles(theme => ({
   expansionPanel: {
-    width: '100%'
+    margin: '10px'
   },
   heading: {
     flex: 1,
-    margin: 'auto 15px'
+    margin: 'auto 15px',
+    textAlign: 'left'
   },
   dueDate: {
     margin: 'auto 15px'
@@ -33,7 +34,8 @@ const useStyles = makeStyles(theme => ({
   expansionPanelSummary: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    height: '40px'
   }
 }));
 
@@ -57,9 +59,19 @@ const Item = ({
           classes={{ content: classes.expansionPanelSummary }}
         >
           {isCompleted ? (
-            <CheckBoxIcon onClick={() => toggleComplete(id)} />
+            <CheckBoxIcon
+              onClick={event => {
+                event.stopPropagation();
+                toggleComplete(id);
+              }}
+            />
           ) : (
-            <CheckBoxOutlineBlankIcon onClick={() => toggleComplete(id)} />
+            <CheckBoxOutlineBlankIcon
+              onClick={event => {
+                event.stopPropagation();
+                toggleComplete(id);
+              }}
+            />
           )}
 
           <Typography className={classes.heading} variant="h6">
@@ -70,11 +82,17 @@ const Item = ({
           </Typography>
           <div>
             <EditIcon
-              onClick={() =>
-                handleOpen({ id, title, description, dueDate, isCompleted })
-              }
+              onClick={event => {
+                event.stopPropagation();
+                handleOpen({ id, title, description, dueDate, isCompleted });
+              }}
             />
-            <DeleteIcon onClick={() => deleteItem(id)} />
+            <DeleteIcon
+              onClick={event => {
+                event.stopPropagation();
+                deleteItem(id);
+              }}
+            />
           </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>

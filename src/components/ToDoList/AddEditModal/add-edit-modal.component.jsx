@@ -52,19 +52,18 @@ const AddEditModal = ({
 }) => {
   const classes = useStyles();
   const [values, setValues] = useState({
-      title: '',
-      description: '',
-      dueDate: new Date(),
-      isCompleted: false
-    }
-  );
+    title: '',
+    description: '',
+    dueDate: new Date(),
+    isCompleted: false
+  });
 
   useEffect(() => {
     if (initialState) {
-      setValues(initialState)
+      setValues(initialState);
     }
-  }, [initialState])
-  
+  }, [initialState]);
+
   const handleChange = event => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
@@ -78,10 +77,10 @@ const AddEditModal = ({
 
     if (add) {
       await submit(values);
+      setValues({ title: '', description: '', dueDate: new Date() });
     } else if (edit) {
       await submit(values.id, values);
     }
-    setValues({ title: '', description: '', dueDate: new Date() });
     handleClose();
   };
 
