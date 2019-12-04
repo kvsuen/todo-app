@@ -7,7 +7,7 @@ import {
 } from './types';
 
 export const fetchItems = () => dispatch => {
-  // axios call to backend server
+  // axios call to backend server to grab all existing todos
 };
 
 export const newItem = itemData => dispatch => {

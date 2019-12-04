@@ -25,7 +25,7 @@ const Header = () => {
           To-Do App
         </Typography>
       </Toolbar>
-      <SearchBar />
+      {/* <SearchBar /> */}
     </AppBar>
   );
 };
