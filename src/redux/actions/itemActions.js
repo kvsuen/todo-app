@@ -7,16 +7,18 @@ import {
 } from './types';
 
 export const fetchItems = () => dispatch => {
+  dispatch({
+    type: FETCH_ITEMS
+  })
   // axios call to backend server to grab all existing todos
 };
 
 export const newItem = itemData => dispatch => {
-  // item will need id
-  // would also need to do request to backend server
-  // to persist data in db
+  // item will need id by sending request to backend server
+  // and to persist data in db
 
   // temporary id generator
-  let id = Math.floor(Math.random() * 1000);
+  let id = Math.floor(Math.random() * 10000);
   const newPost = { id, ...itemData };
 
   dispatch({

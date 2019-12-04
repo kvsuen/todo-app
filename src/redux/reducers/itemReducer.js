@@ -45,14 +45,16 @@ export default function(state = initialState, action) {
       };
 
     case TOGGLE_COMPLETE:
-      const idToToggleComplete = action.payload
-      const updatedItem = state.items[idToToggleComplete]
-      const status = updatedItem.isCompleted
-      status ? updatedItem.isCompleted = false : updatedItem.isCompleted = true
+      const idToToggleComplete = action.payload;
+      const updatedItem = state.items[idToToggleComplete];
+      const status = updatedItem.isCompleted;
+      status
+        ? (updatedItem.isCompleted = false)
+        : (updatedItem.isCompleted = true);
 
       return {
         ...state,
-        items: {...state.items, [idToToggleComplete]: updatedItem}
+        items: { ...state.items, [idToToggleComplete]: updatedItem }
       };
 
     default:
